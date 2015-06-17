@@ -1,0 +1,13 @@
+#!/bin/bash
+
+duck=`zenity --entry --title "where will you throw the window" --text="Enter a hostname to throw window to" --entry-text "IP Address / hostname"`
+
+User=$(ssh -A cumorris@$duck 'echo "`w | grep " :0 " | head -n 1 | cut -d " " -f1`"' )
+Prog=$(zenity --entry --title "what program?" --text="Enter the name of the command to execute" --entry-text "Command here")
+echo "SSH'ing to machine"
+ssh -AX cumorris@$duck "touch /tmp/.Xauthority && sudo dd if=/home/$User/.Xauthority of=/tmp/.Xauthority"
+echo ".Xauthority file put in place"
+echo "Sending Program of your choice"
+ssh -AX cumorris@$duck "export DISPLAY=:0 && export XAUTHORITY=/tmp/.Xauthority && $Prog"
+echo "Done"
+echo $Prog

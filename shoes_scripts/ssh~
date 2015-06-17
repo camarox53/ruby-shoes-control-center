@@ -1,0 +1,5 @@
+#! /usr/bin/env bash
+
+duck=`zenity --entry --title "what machine?" --text="Enter a hostname to ssh to" --entry-text "IP Address / hostname"`
+
+gnome-terminal -x 'ssh -AX cumorris@${duck}'
